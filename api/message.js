@@ -17,8 +17,10 @@ export default async function handler(req, res) {
         phone_number,
         message
     }
+    const queryString = URLSearchParams(params).toString();
+    const urlWithParams = `https://whatsms.p.rapidapi.com/send_sms?${queryString}`;
     try {
-        const response = await axios.post('https://whatsms.p.rapidapi.com/send_sms', {}, { params, headers });
+        const response = await axios.post(urlWithParams, {}, { headers: headers });
         return res.status(200).json({ success: true, data: response.data, message: 'Message sent successfully' });
     } catch (error) {
         return res.status(500).json({ error: 'Failed to send message', details: error.message})
