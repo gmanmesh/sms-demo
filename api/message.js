@@ -14,13 +14,13 @@ export default async function handler(req, res) {
         'x-rapidapi-host': 'whatsms.p.rapidapi.com'
     }
     const params = {
-        phone_number,
-        message
+        phone_number: phone_number,
+        message: message
     }
     const queryString = URLSearchParams(params).toString();
     const urlWithParams = `https://whatsms.p.rapidapi.com/send_sms?${queryString}`;
     try {
-        const response = await axios.post(urlWithParams, {}, { headers: headers });
+        const response = await fetch(urlWithParams,{ headers: headers },body: JSON.stringify({}));
         return res.status(200).json({ success: true, data: response.data, message: 'Message sent successfully' });
     } catch (error) {
         return res.status(500).json({ error: 'Failed to send message', details: error.message})
