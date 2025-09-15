@@ -1,6 +1,3 @@
-
-import axios from 'axios';
-
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method Not Allowed' });
@@ -20,7 +17,7 @@ export default async function handler(req, res) {
     const queryString = URLSearchParams(params).toString();
     const urlWithParams = `https://whatsms.p.rapidapi.com/send_sms?${queryString}`;
     try {
-        const response = await fetch(urlWithParams,{ headers: headers },body: JSON.stringify({}));
+        const response = await fetch(urlWithParams, { method: 'POST', headers: headers, body: JSON.stringify({})});
         return res.status(200).json({ success: true, data: response.data, message: 'Message sent successfully' });
     } catch (error) {
         return res.status(500).json({ error: 'Failed to send message', details: error.message})
