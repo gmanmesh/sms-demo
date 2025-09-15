@@ -16,9 +16,9 @@ export default async function handler(req, res) {
         message: message
     }
     const queryString = URLSearchParams(params).toString();
-    const urlWithParams = `https://whatsms.p.rapidapi.com/send_sms?${queryString}`;
+    const urlWithParams = `https://whatsms.p.rapidapi.com/send_sms`;
     try {
-        const response = await fetch(urlWithParams, { method: 'POST', headers: headers, body: JSON.stringify({})});
+        const response = await fetch(urlWithParams, { method: 'POST', headers: headers, body: JSON.stringify({params})});
 
         const responseData = response.json();
         if(!response.ok){
