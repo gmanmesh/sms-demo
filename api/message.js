@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
         'x-rapidapi-host': 'whatsms.p.rapidapi.com'
     }
-    return res.status(200).json({ phone: phone_number, message: message });
+    //return res.status(200).json({ phone: phone_number, message: message });
     const params = {
         phone_number: phone_number,
         message: message
