@@ -18,7 +18,12 @@ export default async function handler(req, res) {
     const urlWithParams = `https://whatsms.p.rapidapi.com/send_sms?${queryString}`;
     try {
         const response = await fetch(urlWithParams, { method: 'POST', headers: headers, body: JSON.stringify({})});
-        return res.status(200).json({ success: true, data: response.data, message: 'Message sent successfully' });
+
+        const responseData = response.json();
+        if(!response.ok){
+            return res.status(response.status).json({ error: 'API request failed', details: responseData });
+        }
+        return res.status(200).json({ success: true, data: responseData, message: 'Message sent successfully' });
     } catch (error) {
         return res.status(500).json({ error: 'Failed to send message', details: error.message})
     }
